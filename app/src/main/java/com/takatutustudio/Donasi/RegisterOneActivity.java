@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class RegisterOneAct extends AppCompatActivity {
+public class RegisterOneActivity extends AppCompatActivity {
 
         LinearLayout btn_back;
         EditText username, password, email_address;
@@ -90,7 +90,7 @@ public class RegisterOneAct extends AppCompatActivity {
                                 });
 
                                 //berpindah activity
-                                Intent gotonextregister = new Intent(RegisterOneAct.this, RegisterTwoAct.class);
+                                Intent gotonextregister = new Intent(RegisterOneActivity.this, RegisterTwoActivity.class);
                                 startActivity(gotonextregister);
                             }
 

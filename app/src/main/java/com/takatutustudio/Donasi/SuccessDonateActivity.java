@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SuccessDonate extends AppCompatActivity {
+public class SuccessDonateActivity extends AppCompatActivity {
     Animation app_splash, btt, ttb;
     Button btn_view_ticket, btn_my_dashboard;
     TextView app_title, app_subtitle;
@@ -46,7 +46,7 @@ public class SuccessDonate extends AppCompatActivity {
         btn_view_ticket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoprofile = new Intent(SuccessDonate.this, MyProfileAct.class);
+                Intent gotoprofile = new Intent(SuccessDonateActivity.this, MyProfileActivity.class);
                 startActivity(gotoprofile);
             }
         });
@@ -55,7 +55,7 @@ public class SuccessDonate extends AppCompatActivity {
         btn_my_dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotohome = new Intent(SuccessDonate.this, HomeActivity.class);
+                Intent gotohome = new Intent(SuccessDonateActivity.this, HomeActivity.class);
                 startActivity(gotohome);
             }
         });

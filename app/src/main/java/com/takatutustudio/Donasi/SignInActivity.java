@@ -10,9 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-
-public class SignInAct extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
 
     TextView btn_new_account;
     Button btn_sign_in;
@@ -36,7 +34,7 @@ public class SignInAct extends AppCompatActivity {
         btn_new_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoregisterone = new Intent(SignInAct.this, RegisterOneAct.class);
+                Intent gotoregisterone = new Intent(SignInActivity.this, RegisterOneActivity.class);
                 startActivity(gotoregisterone);
             }
         });
@@ -110,7 +108,7 @@ public class SignInAct extends AppCompatActivity {
 //                            }
 //                        });
                         if(email.getText().toString().equalsIgnoreCase("admin") && xpassword.getText().toString().equalsIgnoreCase("123")){
-                            Intent gotohome = new Intent(SignInAct.this, HomeActivity.class);
+                            Intent gotohome = new Intent(SignInActivity.this, HomeActivity.class);
                              startActivity(gotohome);
 
                         }

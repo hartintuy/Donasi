@@ -76,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
         btn_to_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoprofile = new Intent(HomeActivity.this, MyProfileAct.class);
+                Intent gotoprofile = new Intent(HomeActivity.this, MyProfileActivity.class);
                 startActivity(gotoprofile);
             }
         });
@@ -94,7 +94,7 @@ public class HomeActivity extends AppCompatActivity {
         btn_zakat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotozakat = new Intent(HomeActivity.this, Zakat.class);
+                Intent gotozakat = new Intent(HomeActivity.this, ZakatActivity.class);
                 gotozakat.putExtra("jenis_tiket", "Tori");
                 startActivity(gotozakat);
             }
@@ -103,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
         btn_wakaf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotowakaf = new Intent(HomeActivity.this, Wakaf.class);
+                Intent gotowakaf = new Intent(HomeActivity.this, WakafActivity.class);
                 gotowakaf.putExtra("jenis_tiket", "Pagoda");
                 startActivity(gotowakaf);
             }

@@ -1,4 +1,6 @@
 package com.takatutustudio.Donasi;
 
-public class RegisterTwoAct {
+public class WakafActivity {
+
+
 }

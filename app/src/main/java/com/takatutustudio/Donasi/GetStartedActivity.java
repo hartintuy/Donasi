@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class GetStartedAct extends AppCompatActivity {
+public class GetStartedActivity extends AppCompatActivity {
 
     Button btn_sign_in, btn_new_account_create;
     Animation ttb, btt;
@@ -43,7 +43,7 @@ public class GetStartedAct extends AppCompatActivity {
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotosign = new Intent(GetStartedAct.this, SignInAct.class);
+                Intent gotosign = new Intent(GetStartedActivity.this, SignInActivity.class);
                 startActivity(gotosign);
             }
         });
@@ -51,7 +51,7 @@ public class GetStartedAct extends AppCompatActivity {
         btn_new_account_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoregisterone = new Intent(GetStartedAct.this, RegisterOneAct.class);
+                Intent gotoregisterone = new Intent(GetStartedActivity.this, RegisterOneActivity.class);
                 startActivity(gotoregisterone);
             }
         });

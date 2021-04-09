@@ -11,7 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class SplashAct extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     Animation app_splash, btt;
     ImageView app_logo;
@@ -53,7 +53,7 @@ public class SplashAct extends AppCompatActivity {
                 @Override
                 public void run() {
                     //Merubah activity ke activity lain
-                    Intent gogetstarted = new Intent(SplashAct.this, GetStartedAct.class);
+                    Intent gogetstarted = new Intent(SplashActivity.this, GetStartedActivity.class);
                     startActivity(gogetstarted);
                     finish();
                 }
@@ -66,7 +66,7 @@ public class SplashAct extends AppCompatActivity {
                 @Override
                 public void run() {
                     //Merubah activity ke activity lain
-                    Intent gogethome = new Intent(SplashAct.this, HomeActivity.class);
+                    Intent gogethome = new Intent(SplashActivity.this, HomeActivity.class);
                     startActivity(gogethome);
                     finish();
                 }

@@ -1,6 +1,6 @@
 package com.takatutustudio.Donasi;
 
-public class Wakaf {
+public class MyProfileActivity {
 
 
 }
