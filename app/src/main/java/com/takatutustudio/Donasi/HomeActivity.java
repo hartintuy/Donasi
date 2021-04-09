@@ -84,7 +84,7 @@ public class HomeActivity extends AppCompatActivity {
         btn_shodaqoh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoshodaqoh = new Intent(HomeActivity.this, shodaqoh.class);
+                Intent gotoshodaqoh = new Intent(HomeActivity.this, ShodaqohActivity.class);
                 //meletakan data kepada intent
                 gotoshodaqoh.putExtra("jenis_tiket", "Pisa");
                 startActivity(gotoshodaqoh);
