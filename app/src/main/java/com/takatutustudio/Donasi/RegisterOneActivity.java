@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,102 +20,104 @@ import com.google.firebase.database.ValueEventListener;
 
 public class RegisterOneActivity extends AppCompatActivity {
 
-        LinearLayout btn_back;
-        EditText username, password, email_address;
-        DatabaseReference reference, reference_username;
-        Button btn_continue;
+    LinearLayout btn_back;
+    EditText username, password, email_address;
+    DatabaseReference reference, reference_username;
+    Button btn_continue;
 
-        String USERNAME_KEY = "usernamekey";
-        String username_key = "";
+    String USERNAME_KEY = "usernamekey";
+    String username_key = "";
 
+    private FirebaseAuth mAuth;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_register_one);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register_one);
 
-            username = findViewById(R.id.username);
-            password = findViewById(R.id.password);
-            email_address = findViewById(R.id.email_address);
+        mAuth = FirebaseAuth.getInstance();
 
-            btn_back = findViewById(R.id.btn_back);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        email_address = findViewById(R.id.email_address);
 
-            btn_continue = findViewById(R.id.btn_continue);
-            btn_continue.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        btn_back = findViewById(R.id.btn_back);
 
-                    //ubah state menjadi loading
-                    btn_continue.setEnabled(false);
-                    btn_continue.setText("Loading...");
+        btn_continue = findViewById(R.id.btn_continue);
+        btn_continue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    //mengambil username pada firebase
-                    reference_username = FirebaseDatabase.getInstance().getReference()
-                            .child("Users").child(username.getText().toString());
+                //ubah state menjadi loading
+                btn_continue.setEnabled(false);
+                btn_continue.setText("Loading...");
 
-                    reference_username.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            //Jika username tersedia
-                            if (dataSnapshot.exists()){
-                                Toast.makeText(getApplicationContext(), "Username sudah tersedia", Toast.LENGTH_SHORT).show();
+                //mengambil username pada firebase
+                reference_username = FirebaseDatabase.getInstance().getReference()
+                        .child("Users").child(username.getText().toString());
 
-                                //ubah state menjadi loading Active
-                                btn_continue.setEnabled(true);
-                                btn_continue.setText("CONTINUE");
+                reference_username.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Jika username tersedia
+                        if (dataSnapshot.exists()) {
+                            Toast.makeText(getApplicationContext(), "Username sudah tersedia", Toast.LENGTH_SHORT).show();
 
-                            }
-                            else {
-                                //menyimpan data kepada local storage (handphone)
-                                SharedPreferences sharedPreferences = getSharedPreferences(USERNAME_KEY, MODE_PRIVATE);
-                                SharedPreferences.Editor editor =  sharedPreferences.edit();
-                                editor.putString(username_key, username.getText().toString());
-                                editor.apply();
+                            //ubah state menjadi loading Active
+                            btn_continue.setEnabled(true);
+                            btn_continue.setText("CONTINUE");
 
-                                //simpan kepada database
-                                reference = FirebaseDatabase.getInstance().getReference()
-                                        .child("Users").child(username.getText().toString());
-                                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        dataSnapshot.getRef().child("username").setValue(username.getText().toString());
-                                        dataSnapshot.getRef().child("password").setValue(password.getText().toString());
-                                        dataSnapshot.getRef().child("email_address").setValue(email_address.getText().toString());
-                                        dataSnapshot.getRef().child("user_balance").setValue(800);
-                                    }
+                        } else {
+                            //menyimpan data kepada local storage (handphone)
+                            SharedPreferences sharedPreferences = getSharedPreferences(USERNAME_KEY, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(username_key, username.getText().toString());
+                            editor.apply();
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
+                            //simpan kepada database
+                            reference = FirebaseDatabase.getInstance().getReference()
+                                    .child("Users").child(username.getText().toString());
+                            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    dataSnapshot.getRef().child("username").setValue(username.getText().toString());
+                                    dataSnapshot.getRef().child("password").setValue(password.getText().toString());
+                                    dataSnapshot.getRef().child("email_address").setValue(email_address.getText().toString());
+                                    dataSnapshot.getRef().child("user_balance").setValue(800);
+                                }
 
-                                    }
-                                });
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                                //berpindah activity
-                                Intent gotonextregister = new Intent(RegisterOneActivity.this, RegisterTwoActivity.class);
-                                startActivity(gotonextregister);
-                            }
+                                }
+                            });
 
+                            //berpindah activity
+                            Intent gotonextregister = new Intent(RegisterOneActivity.this, RegisterSuccessActivity.class);
+                            startActivity(gotonextregister);
                         }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                    }
 
-                        }
-                    });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
 
-                }
-            });
+            }
+        });
 
-            btn_back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
-        }
     }
+}
 
 
 
