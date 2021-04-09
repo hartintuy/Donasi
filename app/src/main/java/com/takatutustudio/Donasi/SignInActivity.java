@@ -16,11 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -91,7 +88,7 @@ public class SignInActivity extends AppCompatActivity {
                                     if (user != null){
                                         getUserData(user.getUid());
                                     }
-                                    Intent gotohome = new Intent(SignInActivty.this, HomeActivity.class);
+                                    Intent gotohome = new Intent(SignInActivity.this, HomeActivity.class);
                                     startActivity(gotohome);
                                 } else {
                                     // If sign in fails, display a message to the user.
