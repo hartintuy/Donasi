@@ -31,8 +31,6 @@ public class RegisterOneActivity extends AppCompatActivity {
     DatabaseReference reference, refUsers;
     Button btnContinue;
 
-    String USERNAME_KEY = "username_key";
-
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDb;
 
@@ -118,9 +116,9 @@ public class RegisterOneActivity extends AppCompatActivity {
 
                 } else {
                     //menyimpan data kepada local storage (handphone)
-                    SharedPreferences sharedPreferences = getSharedPreferences(USERNAME_KEY, MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getSharedPreferences(PrefConst.PREFERENCE_NAME, MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(USERNAME_KEY, etUsername.getText().toString());
+                    editor.putString(PrefConst.USERNAME_KEY, etUsername.getText().toString());
                     editor.apply();
 
                     //simpan kepada database
