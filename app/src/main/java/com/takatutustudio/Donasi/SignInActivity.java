@@ -95,6 +95,8 @@ public class SignInActivity extends AppCompatActivity {
                                     Log.e("TAG", "signInWithEmail:failure", task.getException());
                                     Toast.makeText(getApplicationContext(), "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
+                                    btnSignIn.setEnabled(true);
+                                    btnSignIn.setText("SIGN IN");
                                 }
                             }
                         });
