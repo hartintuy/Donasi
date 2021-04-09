@@ -1,5 +1,6 @@
 package com.takatutustudio.Donasi;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,13 +11,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class SignInActivity extends AppCompatActivity {
 
-    TextView btn_new_account;
-    Button btn_sign_in;
-    EditText email, xpassword;
+    TextView btnNewAccount;
+    Button btnSignIn;
+    EditText etEmail, etPassword;
 
     //DatabaseReference reference;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseDatabase mFirebaseDb = FirebaseDatabase.getInstance();
+    private DatabaseReference refUsers;
 
     //String USERNAME_KEY = "usernamekey";
     //String username_key = "";
@@ -26,12 +41,15 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        btn_new_account = findViewById(R.id.btn_new_account);
-        btn_sign_in = findViewById(R.id.btn_sign_in);
-        email = findViewById(R.id.xusername);
-        xpassword = findViewById(R.id.xpassword);
+        refUsers = mFirebaseDb.getReference()
+                .child("users");
 
-        btn_new_account.setOnClickListener(new View.OnClickListener() {
+        btnNewAccount = findViewById(R.id.btn_new_account);
+        btnSignIn = findViewById(R.id.btn_sign_in);
+        etEmail = findViewById(R.id.email);
+        etPassword = findViewById(R.id.xpassword);
+
+        btnNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent gotoregisterone = new Intent(SignInActivity.this, RegisterOneActivity.class);
@@ -39,83 +57,57 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        btn_sign_in.setOnClickListener(new View.OnClickListener() {
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //ubah state menjadi loading
-                btn_sign_in.setEnabled(false);
-                btn_sign_in.setText("Loading...");
+                btnSignIn.setEnabled(false);
+                btnSignIn.setText("Loading...");
 
-                final String username = email.getText().toString();
-                final String password = xpassword.getText().toString();
+                final String email = etEmail.getText().toString();
+                final String password = etPassword.getText().toString();
 
-                if (username.isEmpty()) {
+                if (email.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Username kosong!", Toast.LENGTH_SHORT).show();
                     //ubah state menjadi Username kosong
-                    btn_sign_in.setEnabled(true);
-                    btn_sign_in.setText("SIGN IN");
+                    btnSignIn.setEnabled(true);
+                    btnSignIn.setText("SIGN IN");
                 }
                 else {
                     if (password.isEmpty()) {
                         Toast.makeText(getApplicationContext(), "Password kosong", Toast.LENGTH_SHORT).show();
                         //ubah state menjadi Password kosong
-                        btn_sign_in.setEnabled(true);
-                        btn_sign_in.setText("SIGN IN");
+                        btnSignIn.setEnabled(true);
+                        btnSignIn.setText("SIGN IN");
                     }
                     else {
-//                        reference = FirebaseDatabase.getInstance().getReference()
-//                                .child("Users").child(username);
-//                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(DataSnapshot dataSnapshot) {
-//                                if (dataSnapshot.exists()) {
-//                                    //ambil data password dari firebase
-//                                    String passwordFromFirebase = dataSnapshot.child("password").getValue().toString();
-//
-//                                    //validasi password dengan password firebase
-//                                    if (password.equals(passwordFromFirebase)) {
-//
-//                                        //simpan username (key) pada local
-//                                        SharedPreferences sharedPreferences = getSharedPreferences(USERNAME_KEY, MODE_PRIVATE);
-//                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-//                                        editor.putString(username_key, xusername.getText().toString());
-//                                        editor.apply();
-//
-//                                        //berpindah activity
-//                                        Intent gotohome = new Intent(SignInAct.this, HomeAct.class);
-//                                        startActivity(gotohome);
-//                                    }
-//                                    else {
-//                                        Toast.makeText(getApplicationContext(), "Password salah!", Toast.LENGTH_SHORT).show();
-//                                        //ubah state menjadi Password salah
-//                                        btn_sign_in.setEnabled(true);
-//                                        btn_sign_in.setText("SIGN IN");
-//                                    }
-//                                }
-//                                else {
-//                                    Toast.makeText(getApplicationContext(), "Username tidak ada!", Toast.LENGTH_SHORT).show();
-//                                    //ubah state menjadi Username tidak ada
-//                                    btn_sign_in.setEnabled(true);
-//                                    btn_sign_in.setText("SIGN IN");
-//                                }
-//
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(DatabaseError databaseError) {
-//                                Toast.makeText(getApplicationContext(), "Database Error!", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-                        if(email.getText().toString().equalsIgnoreCase("admin") && xpassword.getText().toString().equalsIgnoreCase("123")){
-                            Intent gotohome = new Intent(SignInActivity.this, HomeActivity.class);
-                             startActivity(gotohome);
-
-                        }
+                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    if (user != null){
+                                        getUserData(user.getUid());
+                                    }
+                                    Intent gotohome = new Intent(SignInActivty.this, HomeActivity.class);
+                                    startActivity(gotohome);
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.e("TAG", "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
                 }
 
             }
         });
+    }
+
+    private void getUserData(String userUid) {
     }
 }
