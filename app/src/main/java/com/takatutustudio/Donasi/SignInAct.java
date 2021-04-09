@@ -16,7 +16,7 @@ public class SignInAct extends AppCompatActivity {
 
     TextView btn_new_account;
     Button btn_sign_in;
-    EditText xusername, xpassword;
+    EditText email, xpassword;
 
     //DatabaseReference reference;
 
@@ -30,7 +30,7 @@ public class SignInAct extends AppCompatActivity {
 
         btn_new_account = findViewById(R.id.btn_new_account);
         btn_sign_in = findViewById(R.id.btn_sign_in);
-        xusername = findViewById(R.id.xusername);
+        email = findViewById(R.id.xusername);
         xpassword = findViewById(R.id.xpassword);
 
         btn_new_account.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +49,7 @@ public class SignInAct extends AppCompatActivity {
                 btn_sign_in.setEnabled(false);
                 btn_sign_in.setText("Loading...");
 
-                final String username = xusername.getText().toString();
+                final String username = email.getText().toString();
                 final String password = xpassword.getText().toString();
 
                 if (username.isEmpty()) {
@@ -109,7 +109,7 @@ public class SignInAct extends AppCompatActivity {
 //                                Toast.makeText(getApplicationContext(), "Database Error!", Toast.LENGTH_SHORT).show();
 //                            }
 //                        });
-                        if(xusername.getText().toString().equalsIgnoreCase("admin") && xpassword.getText().toString().equalsIgnoreCase("123")){
+                        if(email.getText().toString().equalsIgnoreCase("admin") && xpassword.getText().toString().equalsIgnoreCase("123")){
                             Intent gotohome = new Intent(SignInAct.this, HomeActivity.class);
                              startActivity(gotohome);
 

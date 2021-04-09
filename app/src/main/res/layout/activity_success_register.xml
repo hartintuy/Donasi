@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgPrimary"
-    tools:context=".RegisterOneAct">
+    tools:context=".SuccessRegisterAct">
 
     <ImageView
         android:id="@+id/icon_succes"
