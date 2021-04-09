@@ -46,7 +46,7 @@ public class SuccessDonateActivity extends AppCompatActivity {
         btn_view_ticket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoprofile = new Intent(SuccessDonateActivity.this, MyProfileActivity.class);
+                Intent gotoprofile = new Intent(getApplicationContext(), MyProfileActivity.class);
                 startActivity(gotoprofile);
             }
         });
@@ -55,7 +55,7 @@ public class SuccessDonateActivity extends AppCompatActivity {
         btn_my_dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotohome = new Intent(SuccessDonateActivity.this, HomeActivity.class);
+                Intent gotohome = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(gotohome);
             }
         });
