@@ -1,16 +1,16 @@
-# TiketApp
+# Donasi App
 
 # Nama Aplikasi : 
-Tiket Saya App
+Donasi Aplikasi
 
 # Waktu Pembuatan : 
-Februrari 2019
+February 2021
 
 # Pengguna Aplikasi : 
-Orang yang ingin mencari tiket Wisata untuk liburan
+Aplikasi Di banngun khusus untuk donatur yang ingin berdonasi di Madania
 
 # Manfaat Aplikasi : 
-Membantu orang dalam mencari tiket Wisata untuk liburan
+Membantu Donatur dalam mendonasikan hartanya ke Yayasan Madania
 
 # Deskripsi Aplikasi :
-Aplikasi pembuatan tiket wisata dibuat oleh Zerki juliandri menggunakan java, xml dan firebase sebagai data center
+Aplikasi pembuatan Aplikasi Donasi dibuat oleh Rachmad Hartono menggunakan java, xml dan firebase sebagai data center
