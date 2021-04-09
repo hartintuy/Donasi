@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Donasi App</string>
+    <string name="slogan">Donasi Jadi Lebih Mudah</string>
+    <string name="sigin">sigin</string>
+    <string name="title_activity_sign_in">SignInAct</string>
+    <string name="username_label">Username</string>
+    <string name="password_label">Password</string>
+    <string name="email_label">Email Address</string>
+    <string name="name_label">Name</string>
+    <string name="explore">Donasi Sekarang</string>
+</resources>
